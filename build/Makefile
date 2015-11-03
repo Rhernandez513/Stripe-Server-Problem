@@ -45,7 +45,7 @@ CLIENT_HEADER = $(CLIENT).h
 CPPFLAGS += -isystem $(GTEST_DIR)/include -I$(HEADER_DIR)
 
 # Flags passed to the C++ compiler.
-CXXFLAGS += -g -Wall -Wextra -pthread
+CXXFLAGS += -g -Wall -Wextra -pthread -std=c++11
 
 
 # All Google Test headers.  Usually you shouldn't change this

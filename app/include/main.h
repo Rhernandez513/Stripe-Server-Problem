@@ -1,6 +1,4 @@
-#include <string>
 #include "gtest/gtest.h"
 
-int foobarfunc(int x);
-std::string stringbarfunc(void);
 
+int next_server_number(int input[], size_t size);
