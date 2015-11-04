@@ -1,47 +1,54 @@
+// By Robert David Hernandez
+// Github: Rhernandez513
+// g++ -g -O2 -static -std=c++14 main.cpp -o main
+
 #include "main.h"
 #include <algorithm>
-
-int next_server_number(int input[], size_t size) {
-
-  // If no valid input
-  if (!(input)) { return 1; }
-  if (!(size)) { return 1; }
-
-  int result, min, max, flag;
-
-  flag = 0;
-  min = max = result = 1;
-
-  // This method can only be used for arrays not passed as parameters
-  // as the function siganture decays to 
-  // int next_server_number(int * input, size_t size);
-  //
-  // int len = sizeof(input) / sizeof(int);
+/* #include <iostream> */
 
 
-  std::vector<int> checkedValues;
+int next_server_number(int input[], const std::size_t input_size) {
 
-  for (unsigned i = 0; i < size; ++i) {
+  if (input == nullptr) { return -1; }
+  if (input_size == 0)  { return  1; }
+ 
+  std::sort(input, input + input_size);
 
-    // Running minimum and maximum values
-    max = std::max(input[i], max);
-    min = std::min(input[i], min);
+  int result = 1;
 
-    // Potential Server to provision
-    flag = min + 1;
+  for (size_t i = 0; i < input_size; ++i, ++result) {
 
-    checkedValues.push_back(input[i]);
+    /* std::cout << "result : " << result << std::endl; */
+    /* std::cout << "input[i]: " << input[i] << std::endl; */
 
-    // If the server to provision is already in the array, invalid flag chosen
-    for (unsigned j = 0; j < size; ++j ) {
-      if (flag == checkedValues[j]) { flag = -1; }
-    } 
-  } // end for
-
-  // if the chosen flag is "valid" assign to result, else assign to current
-  // max plus 1 in case a new server needs to be provisioned
-  if (flag != (-1)) { result = flag; }
-  else { result = max + 1; }
-
+    if (result != input[i]) { break; }
+    if (i == input_size - 1) { result = input[i] + 1; break; }
+  }
   return result;
 }
+
+int next_server_number(int input[]) {
+  return next_server_number (input, 0);
+}
+
+
+// If Desired to run without GoogleTest, uncomment the main function below,
+// and compile like so (I used g++ version 5.2.1-22ubuntu2):
+// g++ -g -O2 -static -std=c++14 main.cpp -o main
+//
+// Expected values are on the right
+//
+//int main() {
+//  int a [3] = { 1, 2, 3 };
+//  int b [0] = {  };
+//  int c [4] = { 1, 2, 4, 5 };
+//  int d [4] = { 5, 4, 3, 2 };
+//  std::cout << new_server_number(a, arr_size(a)) << std::endl; // 4
+////  std::cout << new_server_number(nullptr) << std::endl;        // -1
+////  std::cout << new_server_number(0) << std::endl;              // -1
+//  std::cout << new_server_number(b) << std::endl;              // 1
+//  std::cout << new_server_number(c, arr_size(c)) << std::endl; // 3
+//  std::cout << new_server_number(d, arr_size(d)) << std::endl; // 1
+//  return 0;
+//
+
