@@ -33,8 +33,11 @@ int next_server_number(int input[]) {
 
 
 // If Desired to run without GoogleTest, uncomment the main function below,
-// and compile like so (I used g++ version 5.2.1-22ubuntu2):
-// g++ -g -O2 -static -std=c++14 main.cpp -o main
+// and compile like so:
+// g++ -I../include -g -O2 -static -std=c++14 main.cpp -o main
+//
+// (I used g++ version 5.2.1-22ubuntu2)
+// Be sure to comment out "#include "gtest/gtest.h" " in "main.h"
 //
 // Expected values are on the right
 //
